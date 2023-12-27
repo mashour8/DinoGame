@@ -13,12 +13,6 @@ let backgroundOffset = 0;
 let backgroundImage = new Image();
 backgroundImage.src = "/images/Track.png.jpg";
 
-function drawBackgroundLine() {
-  const pattern = ctx.createPattern(backgroundImage, "repeat");
-  ctx.fillStyle = pattern;
-  ctx.fillRect(backgroundOffset, 0, canvas.width, canvas.height);
-}
-
 //used for 'SetInterval'
 let presetTime = 1000;
 //Enemy can speed up when player has scored points at intervals of 10
@@ -30,41 +24,12 @@ let arrayObstacles = [];
 let animationId = null;
 
 function drawBackgroundLine() {
-  // ctx.beginPath()
-  // ctx.moveTo(0,400)
-  // ctx.lineTo(800,400)
-  // ctx.lineWidth = 1
-  // ctx.strokeStyle = 'black'
-  // ctx.stroke()
-
-  // const trackImage = document.getElementById('trackImage')
-  // ctx.drawImage(trackImage, 0, 395, 800, 12)
-
-  // const pattern = ctx.createPattern(trackImage, 'repeat-x');
-  // ctx.fillStyle = pattern;
-  // ctx.fillRect(backgroundOffset, 0, canvas.width, canvas.height);
-
   ctx.beginPath();
   ctx.moveTo(0, 400);
   ctx.lineTo(canvas.width, 400);
   ctx.lineWidth = 1;
   ctx.strokeStyle = "black";
   ctx.stroke();
-}
-
-//Both min & max are included in this random generation funciton
-function getRandomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function randomNumberInterval(timeInterval) {
-  let returnTime = timeInterval;
-  if (Math.random() < 0.5) {
-    returnTime += getRandomNumber(presetTime / 5, presetTime * 1.5);
-  } else {
-    returnTime -= getRandomNumber(presetTime / 5, presetTime / 2);
-  }
-  return timeInterval;
 }
 
 class Player {
@@ -163,8 +128,6 @@ class Player {
   }
 }
 
-let player = new Player({ x: 150, y: 350 }, 50, 50);
-
 class Obstacle {
   constructor(size, speed) {
     this.x = canvas.width + size;
@@ -182,6 +145,8 @@ class Obstacle {
     this.x -= this.slideSpeed;
   }
 }
+
+let player = new Player({ x: 150, y: 350 }, 50, 50);
 
 function animate() {
   animationId = requestAnimationFrame(animate);
@@ -217,6 +182,14 @@ function animate() {
   });
 }
 
+window.addEventListener("load", (event) => {
+  const isHidden = (document.getElementById("startButton").hidden = false);
+  const restartImage = document.getElementById("startButton");
+  restartImage.innerHTML = '<img src="images/start-button.png" />';
+
+  // animate();
+});
+
 //Returns trun if colliding
 function squaresColliding(player, block) {
   let playerCenterX = player.position.x + player.width / 2;
@@ -235,6 +208,25 @@ function squaresColliding(player, block) {
   return deltaX < halfWidths && deltaY < halfHeights;
 }
 
+function generateBlocks() {
+  let timeDelay = randomNumberInterval(presetTime);
+  arrayObstacles.push(new Obstacle(50, enemySpeed));
+
+  setTimeout(generateBlocks, timeDelay);
+}
+
+startButton.addEventListener("click", () => {
+  // Start or restart the game
+  initializeGame();
+  animate();
+});
+
+function initializeGame() {
+  player = new Player({ x: 150, y: 350 }, 50, 50);
+  arrayObstacles = [];
+  gameScore.innerText = "Score is: 0";
+}
+
 function gameOver() {
   // Play game over sound if needed
   gameOverSFX.play();
@@ -246,21 +238,6 @@ function gameOver() {
 
   // alert('Game Over! Your final score is: ' + Math.floor(player.score / 10));
 }
-
-function generateBlocks() {
-  let timeDelay = randomNumberInterval(presetTime);
-  arrayObstacles.push(new Obstacle(50, enemySpeed));
-
-  setTimeout(generateBlocks, timeDelay);
-}
-
-window.addEventListener("load", (event) => {
-  const isHidden = (document.getElementById("startButton").hidden = false);
-  const restartImage = document.getElementById("startButton");
-  restartImage.innerHTML = '<img src="images/start-button.png" />';
-
-  // animate();
-});
 
 // animate();
 setTimeout(() => {
@@ -277,18 +254,6 @@ addEventListener("keydown", (event) => {
     // player.velocity.y = -9
   }
 });
-
-startButton.addEventListener("click", () => {
-  // Start or restart the game
-  initializeGame();
-  animate();
-});
-
-function initializeGame() {
-  player = new Player({ x: 150, y: 350 }, 50, 50);
-  arrayObstacles = [];
-  gameScore.innerText = "Score is: 0";
-}
 
 function toggle() {
   const isHidden = document.getElementById("startButton").hidden;
@@ -310,6 +275,24 @@ function toggle() {
     ctx.drawImage(image, canvas.width / 2, canvas.height / 2, 400, 400);
   }
 }
+
+//Both min & max are included in this random generation funciton
+function getRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function randomNumberInterval(timeInterval) {
+  let returnTime = timeInterval;
+  if (Math.random() < 0.5) {
+    returnTime += getRandomNumber(presetTime / 5, presetTime * 1.5);
+  } else {
+    returnTime -= getRandomNumber(presetTime / 5, presetTime / 2);
+  }
+  return timeInterval;
+}
+
+
+
 
 // let x = 1;
 // let bgImage = document.getElementById("landscape");
