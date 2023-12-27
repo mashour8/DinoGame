@@ -257,7 +257,7 @@ function generateBlocks() {
 window.addEventListener("load", (event) => {
   const isHidden = (document.getElementById("startButton").hidden = false);
   const restartImage = document.getElementById("startButton");
-  restartImage.innerHTML = '<img src="/images/start-button.png" />';
+  restartImage.innerHTML = '<img src="images/start-button.png" />';
 
   // animate();
 });
@@ -299,7 +299,7 @@ function toggle() {
     document.getElementById("startButton").hidden = true;
 
     const restartImage = document.getElementById("startButton");
-    restartImage.innerHTML = '<img src="/images/GameOver.png" />';
+    restartImage.innerHTML = '<img src="images/GameOver.png" />';
 
     // Create an Image object
     const image = new Image();
