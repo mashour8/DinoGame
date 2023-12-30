@@ -29,17 +29,17 @@ body{
 
 .landscape{
     position: absolute;
-    top: -700%;
+    top: -200px;
     left: 50%;
     transform: translate(-50%, -50%);
     background: url('/images/Track.png');
     background-repeat: repeat-x;
-    background-size: 8px 10px;
+    background-size: 50% 40%;
     background-position: 0;
-    z-index: 1;
+    /* z-index: 1; */
   }
 
-  /* .container {
+  .container {
     position: relative;
     height: 100vh;
-  } */
+  }

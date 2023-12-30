@@ -18,6 +18,8 @@ let presetTime = 1000;
 //Enemy can speed up when player has scored points at intervals of 10
 let enemySpeed = 5;
 
+let moving 
+
 // let arrayObstacles = [new Obstacle(50,5)]
 let arrayObstacles = [];
 
@@ -133,7 +135,6 @@ class Obstacle {
     this.x = canvas.width + size;
     this.y = 400 - size;
     this.size = size;
-    this.color = "red";
     this.slideSpeed = speed;
   }
   drow() {
@@ -155,14 +156,14 @@ function animate() {
   setTimeout(() => {
     player.score++;
     if (player.score % 1000 === 0) {
-      scoreSFX.play();
+      speedUpSFX.play();
       enemySpeed++;
     }
     gameScore.innerText = `Score is : ${Math.floor(player.score / 10)}`;
   }, 0);
 
   //canvas logic
-  drawBackgroundLine();
+  // drawBackgroundLine();
 
   player.update();
 
@@ -189,7 +190,7 @@ window.addEventListener("load", (event) => {
 
   // animate();
 });
-
+// animate()
 //Returns trun if colliding
 function squaresColliding(player, block) {
   let playerCenterX = player.position.x + player.width / 2;
@@ -225,6 +226,7 @@ function initializeGame() {
   player = new Player({ x: 150, y: 350 }, 50, 50);
   arrayObstacles = [];
   gameScore.innerText = "Score is: 0";
+  enemySpeed = 5;
 }
 
 function gameOver() {
@@ -235,7 +237,7 @@ function gameOver() {
   // initializeGame();
   toggle();
   // Display a game over message or perform other actions as needed
-
+  clearInterval(moving)
   // alert('Game Over! Your final score is: ' + Math.floor(player.score / 10));
 }
 
@@ -262,6 +264,8 @@ function toggle() {
     document.getElementById("startButton").hidden = false;
   } else {
     document.getElementById("startButton").hidden = true;
+    
+    moving = setInterval(move, 50);
 
     const restartImage = document.getElementById("startButton");
     restartImage.innerHTML = '<img src="images/GameOver.png" />';
@@ -294,19 +298,18 @@ function randomNumberInterval(timeInterval) {
 
 
 
-// let x = 1;
-// let bgImage = document.getElementById("landscape");
+let x = 1;
+let bgImage = document.getElementById("landscape");
 
-// bgImage.style.width = "100vw"
-// console.log('canvas.width',canvas.width)
+bgImage.style.width = "200vw"
 
-// bgImage.style.width = canvas.width + "px";
-// bgImage.style.height = "50vh";
+bgImage.style.width = canvas.width + "px";
+bgImage.style.height = "20px";
 // bgImage.style.alignItems = "center";
 
-// function move() {
-//   x++;
-//   bgImage.style.backgroundPositionX = x + "px";
-// }
+function move() {
+  x -=25;
+  bgImage.style.backgroundPositionX = x + "px";
+}
 
-// setInterval(move, 50);
+
