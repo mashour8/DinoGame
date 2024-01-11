@@ -5,13 +5,13 @@ let gameScore = document.getElementById("score");
 const startButton = document.getElementById("startButton");
 
 //Sounds Effects
-let speedUpSFX = new Audio("/audio/point.wav");
-let gameOverSFX = new Audio("/audio/die.wav");
-let jumpSFX = new Audio("/audio/jump.wav");
+let speedUpSFX = new Audio("./audio/point.wav");
+let gameOverSFX = new Audio("./audio/die.wav");
+let jumpSFX = new Audio("./audio/jump.wav");
 
 let backgroundOffset = 0;
 let backgroundImage = new Image();
-backgroundImage.src = "/images/Track.png.jpg";
+backgroundImage.src = "./../images/track.png";
 
 //used for 'SetInterval'
 let presetTime = 1000;
@@ -187,7 +187,7 @@ function animate() {
 window.addEventListener("load", (event) => {
   const isHidden = (document.getElementById("startButton").hidden = false);
   const restartImage = document.getElementById("startButton");
-  restartImage.innerHTML = '<img src="/images/start-button.png" />';
+  restartImage.innerHTML = '<img src="./images/start-button.png" />';
 
   // animate();
 });
@@ -269,7 +269,7 @@ function toggle() {
     moving = setInterval(move, 50);
 
     const restartImage = document.getElementById("startButton");
-    restartImage.innerHTML = '<img src="/images/GameOver.png" />';
+    restartImage.innerHTML = '<img src="./images/GameOver.png" />';
 
     // Create an Image object
     const image = new Image();
