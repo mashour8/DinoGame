@@ -11,7 +11,7 @@ let jumpSFX = new Audio("./audio/jump.wav");
 
 let backgroundOffset = 0;
 let backgroundImage = new Image();
-backgroundImage.src = "./../images/track.png";
+backgroundImage.src = "./images/track.png";
 
 //used for 'SetInterval'
 let presetTime = 1000;
