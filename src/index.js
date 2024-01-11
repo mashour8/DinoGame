@@ -140,6 +140,7 @@ class Obstacle {
   drow() {
     const obstacleImage = document.getElementById("obstacleImage");
     ctx.drawImage(obstacleImage, this.x, this.y, this.size, this.size);
+    console.log('x obs ', this.x)
   }
   slide() {
     this.drow();
@@ -186,7 +187,7 @@ function animate() {
 window.addEventListener("load", (event) => {
   const isHidden = (document.getElementById("startButton").hidden = false);
   const restartImage = document.getElementById("startButton");
-  restartImage.innerHTML = '<img src="images/start-button.png" />';
+  restartImage.innerHTML = '<img src="/images/start-button.png" />';
 
   // animate();
 });
@@ -268,7 +269,7 @@ function toggle() {
     moving = setInterval(move, 50);
 
     const restartImage = document.getElementById("startButton");
-    restartImage.innerHTML = '<img src="images/GameOver.png" />';
+    restartImage.innerHTML = '<img src="/images/GameOver.png" />';
 
     // Create an Image object
     const image = new Image();
